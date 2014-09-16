@@ -1,0 +1,168 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sun Sep 14 03:54:18 BRT 2014
+  Author:  cicero
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CotacaoProcess"
+               targetNamespace="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://soa.rentacar.com.br"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://svc.rentacar.com.br"
+         xmlns:ns3="http://model.rentacar.com.br/xsd"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+  <import namespace="http://soa.rentacar.com.br" location="../Schemas/Veiculo.xsd"
+          importType="http://www.w3.org/2001/XMLSchema"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess" location="../WSDLs/CotacaoProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="cotacaoprocess_client" partnerLinkType="client:CotacaoProcess" myRole="CotacaoProcessProvider"/>
+    <partnerLink name="VeiculoReference" partnerLinkType="ns2:VeiculoReference" partnerRole="VeiculoSvcPortType"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CotacaoProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:CotacaoProcessResponseMessage"/>
+<!--    <variable name="GetVeiculosDisponiveis_Input" messageType="ns2:GetVeiculosDisponiveisRequest"/>
+    <variable name="GetVeiculosDisponiveis_Output" messageType="ns2:GetVeiculosDisponiveisResponse"/>-->
+    <variable name="ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_InputVariable"
+              messageType="ns2:GetVeiculosDisponiveisRequest"/>
+    <variable name="ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable"
+              messageType="ns2:GetVeiculosDisponiveisResponse"/>
+    <variable name="VeiculoVazio" type="ns1:Veiculo"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CotacaoProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="cotacaoprocess_client" portType="client:CotacaoProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="ValoresEntrada">
+      <copy>
+        <from>$inputVariable.payload/ns1:tipoVeiculo</from>
+        <to>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_InputVariable.parameters/ns2:tipoVeiculo</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns1:datRetirada</from>
+        <to>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_InputVariable.parameters/ns2:datRetirada</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns1:datDevolucao</from>
+        <to>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_InputVariable.parameters/ns2:datDevolucao</to>
+      </copy>
+    </assign>
+    <invoke name="ConsultaVeiculosDisponiveis" partnerLink="VeiculoReference"
+            portType="ns2:VeiculoSvcPortType" operation="GetVeiculosDisponiveis"
+            inputVariable="ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_InputVariable"
+            outputVariable="ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="VerificaDisponibilidadeVeiculo">
+      <condition>ora:countNodes('ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable','parameters','ns2:return[1]/ns3:codVeiculo')&gt;0</condition>
+      <assign name="VeiculoDisponivel">
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:codVeiculo</from>
+          <to>$outputVariable.payload/ns1:codVeiculo</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:dscPlacaVeiculo</from>
+          <to>$outputVariable.payload/ns1:dscPlacaVeiculo</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:indBloqueado</from>
+          <to>$outputVariable.payload/ns1:indBloqueado</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:indTipoVeiculo</from>
+          <to>$outputVariable.payload/ns1:indTipoVeiculo</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:qtdKMPermitidoDia</from>
+          <to>$outputVariable.payload/ns1:qtdKMPermitidoDia</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:valDiariaVeiculo</from>
+          <to>$outputVariable.payload/ns1:valDiariaVeiculo</to>
+        </copy>
+        <copy>
+          <from>$ConsultaVeiculosDisponiveis_GetVeiculosDisponiveis_OutputVariable.parameters/ns2:return[1]/ns3:valKMAdicionalVeiculo</from>
+          <to>$outputVariable.payload/ns1:valKMAdicionalVeiculo</to>
+        </copy>
+      </assign>
+      <else><assign name="VeiculoVazio" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+      
+   <copy>
+            <from>$outputVariable.payload/ns1:codVeiculo</from>
+            <to>$VeiculoVazio/ns1:codVeiculo</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:dscPlacaVeiculo</from>
+            <to>$VeiculoVazio/ns1:dscPlacaVeiculo</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:indBloqueado</from>
+            <to>$VeiculoVazio/ns1:indBloqueado</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:indTipoVeiculo</from>
+            <to>$VeiculoVazio/ns1:indTipoVeiculo</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:qtdKMPermitidoDia</from>
+            <to>$VeiculoVazio/ns1:qtdKMPermitidoDia</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:valDiariaVeiculo</from>
+            <to>$VeiculoVazio/ns1:valDiariaVeiculo</to>
+          </copy><copy>
+            <from>$outputVariable.payload/ns1:valKMAdicionalVeiculo</from>
+            <to>$VeiculoVazio/ns1:valKMAdicionalVeiculo</to>
+          </copy></assign></else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="cotacaoprocess_client" portType="client:CotacaoProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

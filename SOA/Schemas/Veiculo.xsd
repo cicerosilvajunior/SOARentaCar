@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://soa.rentacar.com.br"
+            targetNamespace="http://soa.rentacar.com.br" elementFormDefault="qualified">
+  <xsd:element name="GetVeiculosDisponiveis">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" name="tipoVeiculo" type="xsd:string"/>
+        <xsd:element minOccurs="0" name="datRetirada" type="xsd:date"/>
+        <xsd:element minOccurs="0" name="datDevolucao" type="xsd:date"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="GetVeiculosDisponiveisResponse" type="Veiculo" nillable="true"/>
+  
+  <xsd:complexType name="Veiculo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="codVeiculo" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="dscPlacaVeiculo" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="indBloqueado" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="indTipoVeiculo" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="qtdKMPermitidoDia" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="valDiariaVeiculo" type="xsd:double"/>
+      <xsd:element minOccurs="0" name="valKMAdicionalVeiculo" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  
+</xsd:schema>

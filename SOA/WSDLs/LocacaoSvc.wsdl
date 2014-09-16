@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://svc.rentacar.com.br"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:ns1="http://org.apache.axis2/xsd"
+     xmlns:ns="http://svc.rentacar.com.br"
+     xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+     xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+     xmlns:ax23="http://model.rentacar.com.br/xsd"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    >
+    <wsdl:documentation>LocacaoSvc</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax24="http://model.rentacar.com.br/xsd" attributeFormDefault="qualified" elementFormDefault="qualified"
+             targetNamespace="http://svc.rentacar.com.br">
+            <xs:import namespace="http://model.rentacar.com.br/xsd"/>
+            <xs:element name="GetReservas">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="pgnum" type="xs:int"/>
+                        <xs:element minOccurs="0" name="pgsz" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetReservasResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax23:Reserva"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCobrancas">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCobrancasResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax23:Cobranca"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateReserva">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codCliente" type="xs:int"/>
+                        <xs:element minOccurs="0" name="codVeiculo" type="xs:int"/>
+                        <xs:element minOccurs="0" name="datRetiradaPrevista" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="datDevolucaoPrevista" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateReservaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetReserva">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetReservaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax23:Reserva"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateCobranca">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                        <xs:element minOccurs="0" name="dscCobranca" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="numCC" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="numCVC" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="valCobranca" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CancelaReserva">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SetRetiradaVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                        <xs:element minOccurs="0" name="datRetirada" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="kmAtual" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SetDevolucaoVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                        <xs:element minOccurs="0" name="datDevolucao" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="kmAtual" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetValorQuilometragemAdicional">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                        <xs:element minOccurs="0" name="kmExcedente" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetValorQuilometragemAdicionalResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetQuilometragemAdicional">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetQuilometragemAdicionalResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.rentacar.com.br/xsd">
+            <xs:complexType name="Reserva">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="cliente" nillable="true" type="ax23:Cliente"/>
+                    <xs:element minOccurs="0" name="codReserva" type="xs:int"/>
+                    <xs:element minOccurs="0" name="datDevolucaoEfetiva" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="datDevolucaoPrevista" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="datReserva" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="datRetiradaEfetiva" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="datRetiradaPrevista" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="dscBandeiraCC" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numCC" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numCVC" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="qtdKMDevolucao" type="xs:int"/>
+                    <xs:element minOccurs="0" name="qtdKMRetirada" type="xs:int"/>
+                    <xs:element minOccurs="0" name="veiculo" nillable="true" type="ax23:Veiculo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Cliente">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codCliente" type="xs:int"/>
+                    <xs:element minOccurs="0" name="datValidadeConsultaCNH" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="dscCidadeCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dscEnderecoCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dscUFCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nomCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numCNHCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numDocumentoCliente" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Veiculo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codVeiculo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="dscPlacaVeiculo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="indBloqueado" nillable="true" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="indTipoVeiculo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="qtdKMPermitidoDia" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valDiariaVeiculo" nillable="true" type="xs:double"/>
+                    <xs:element minOccurs="0" name="valKMAdicionalVeiculo" nillable="true" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Cobranca">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codCobranca" type="xs:int"/>
+                    <xs:element minOccurs="0" name="datCobranca" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="dscCobranca" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="reserva" nillable="true" type="ax23:Reserva"/>
+                    <xs:element minOccurs="0" name="valCobranca" nillable="true" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="GetReservasRequest">
+        <wsdl:part name="parameters" element="ns:GetReservas"/>
+    </wsdl:message>
+    <wsdl:message name="GetReservasResponse">
+        <wsdl:part name="parameters" element="ns:GetReservasResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SetDevolucaoVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:SetDevolucaoVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="GetCobrancasRequest">
+        <wsdl:part name="parameters" element="ns:GetCobrancas"/>
+    </wsdl:message>
+    <wsdl:message name="GetCobrancasResponse">
+        <wsdl:part name="parameters" element="ns:GetCobrancasResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SetRetiradaVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:SetRetiradaVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="GetQuilometragemAdicionalRequest">
+        <wsdl:part name="parameters" element="ns:GetQuilometragemAdicional"/>
+    </wsdl:message>
+    <wsdl:message name="GetQuilometragemAdicionalResponse">
+        <wsdl:part name="parameters" element="ns:GetQuilometragemAdicionalResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetValorQuilometragemAdicionalRequest">
+        <wsdl:part name="parameters" element="ns:GetValorQuilometragemAdicional"/>
+    </wsdl:message>
+    <wsdl:message name="GetValorQuilometragemAdicionalResponse">
+        <wsdl:part name="parameters" element="ns:GetValorQuilometragemAdicionalResponse"/>
+    </wsdl:message>
+    <wsdl:message name="CancelaReservaRequest">
+        <wsdl:part name="parameters" element="ns:CancelaReserva"/>
+    </wsdl:message>
+    <wsdl:message name="CreateReservaRequest">
+        <wsdl:part name="parameters" element="ns:CreateReserva"/>
+    </wsdl:message>
+    <wsdl:message name="CreateReservaResponse">
+        <wsdl:part name="parameters" element="ns:CreateReservaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="CreateCobrancaRequest">
+        <wsdl:part name="parameters" element="ns:CreateCobranca"/>
+    </wsdl:message>
+    <wsdl:message name="GetReservaRequest">
+        <wsdl:part name="parameters" element="ns:GetReserva"/>
+    </wsdl:message>
+    <wsdl:message name="GetReservaResponse">
+        <wsdl:part name="parameters" element="ns:GetReservaResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="LocacaoSvcPortType">
+        <wsdl:operation name="GetReservas">
+            <wsdl:input message="ns:GetReservasRequest" wsaw:Action="urn:GetReservas"/>
+            <wsdl:output message="ns:GetReservasResponse" wsaw:Action="urn:GetReservasResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="SetDevolucaoVeiculo">
+            <wsdl:input message="ns:SetDevolucaoVeiculoRequest" wsaw:Action="urn:SetDevolucaoVeiculo"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCobrancas">
+            <wsdl:input message="ns:GetCobrancasRequest" wsaw:Action="urn:GetCobrancas"/>
+            <wsdl:output message="ns:GetCobrancasResponse" wsaw:Action="urn:GetCobrancasResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="SetRetiradaVeiculo">
+            <wsdl:input message="ns:SetRetiradaVeiculoRequest" wsaw:Action="urn:SetRetiradaVeiculo"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetQuilometragemAdicional">
+            <wsdl:input message="ns:GetQuilometragemAdicionalRequest" wsaw:Action="urn:GetQuilometragemAdicional"/>
+            <wsdl:output message="ns:GetQuilometragemAdicionalResponse" wsaw:Action="urn:GetQuilometragemAdicionalResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetValorQuilometragemAdicional">
+            <wsdl:input message="ns:GetValorQuilometragemAdicionalRequest" wsaw:Action="urn:GetValorQuilometragemAdicional"/>
+            <wsdl:output message="ns:GetValorQuilometragemAdicionalResponse" wsaw:Action="urn:GetValorQuilometragemAdicionalResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="CancelaReserva">
+            <wsdl:input message="ns:CancelaReservaRequest" wsaw:Action="urn:CancelaReserva"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateReserva">
+            <wsdl:input message="ns:CreateReservaRequest" wsaw:Action="urn:CreateReserva"/>
+            <wsdl:output message="ns:CreateReservaResponse" wsaw:Action="urn:CreateReservaResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCobranca">
+            <wsdl:input message="ns:CreateCobrancaRequest" wsaw:Action="urn:CreateCobranca"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetReserva">
+            <wsdl:input message="ns:GetReservaRequest" wsaw:Action="urn:GetReserva"/>
+            <wsdl:output message="ns:GetReservaResponse" wsaw:Action="urn:GetReservaResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="LocacaoSvcSoap11Binding" type="ns:LocacaoSvcPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetReservas">
+            <soap:operation style="document" soapAction="urn:GetReservas"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetDevolucaoVeiculo">
+            <soap:operation style="document" soapAction="urn:SetDevolucaoVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetCobrancas">
+            <soap:operation style="document" soapAction="urn:GetCobrancas"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetRetiradaVeiculo">
+            <soap:operation style="document" soapAction="urn:SetRetiradaVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetQuilometragemAdicional">
+            <soap:operation style="document" soapAction="urn:GetQuilometragemAdicional"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetValorQuilometragemAdicional">
+            <soap:operation style="document" soapAction="urn:GetValorQuilometragemAdicional"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateReserva">
+            <soap:operation style="document" soapAction="urn:CreateReserva"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CancelaReserva">
+            <soap:operation style="document" soapAction="urn:CancelaReserva"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCobranca">
+            <soap:operation style="document" soapAction="urn:CreateCobranca"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetReserva">
+            <soap:operation style="document" soapAction="urn:GetReserva"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="LocacaoSvcSoap12Binding" type="ns:LocacaoSvcPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetReservas">
+            <soap12:operation style="document" soapAction="urn:GetReservas" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetDevolucaoVeiculo">
+            <soap12:operation style="document" soapAction="urn:SetDevolucaoVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetCobrancas">
+            <soap12:operation style="document" soapAction="urn:GetCobrancas" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetRetiradaVeiculo">
+            <soap12:operation style="document" soapAction="urn:SetRetiradaVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetQuilometragemAdicional">
+            <soap12:operation style="document" soapAction="urn:GetQuilometragemAdicional" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetValorQuilometragemAdicional">
+            <soap12:operation style="document" soapAction="urn:GetValorQuilometragemAdicional" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateReserva">
+            <soap12:operation style="document" soapAction="urn:CreateReserva" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CancelaReserva">
+            <soap12:operation style="document" soapAction="urn:CancelaReserva" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCobranca">
+            <soap12:operation style="document" soapAction="urn:CreateCobranca" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetReserva">
+            <soap12:operation style="document" soapAction="urn:GetReserva" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="LocacaoSvcHttpBinding" type="ns:LocacaoSvcPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="GetReservas">
+            <http:operation location="GetReservas"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetDevolucaoVeiculo">
+            <http:operation location="SetDevolucaoVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetCobrancas">
+            <http:operation location="GetCobrancas"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SetRetiradaVeiculo">
+            <http:operation location="SetRetiradaVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetQuilometragemAdicional">
+            <http:operation location="GetQuilometragemAdicional"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetValorQuilometragemAdicional">
+            <http:operation location="GetValorQuilometragemAdicional"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateReserva">
+            <http:operation location="CreateReserva"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CancelaReserva">
+            <http:operation location="CancelaReserva"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCobranca">
+            <http:operation location="CreateCobranca"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetReserva">
+            <http:operation location="GetReserva"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="LocacaoSvc">
+        <wsdl:port name="LocacaoSvcHttpSoap11Endpoint" binding="ns:LocacaoSvcSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/LocacaoSvc.LocacaoSvcHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LocacaoSvcHttpSoap12Endpoint" binding="ns:LocacaoSvcSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/LocacaoSvc.LocacaoSvcHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LocacaoSvcHttpEndpoint" binding="ns:LocacaoSvcHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/LocacaoSvc.LocacaoSvcHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

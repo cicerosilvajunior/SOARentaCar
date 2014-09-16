@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://soa.rentacar.com.br" xmlns:cli="http://soa.rentacar.com.br/Cliente"
+            targetNamespace="http://soa.rentacar.com.br" elementFormDefault="qualified">
+  <xsd:include schemaLocation="Cliente.xsd"/>
+  <xsd:include schemaLocation="Veiculo.xsd"/>
+
+  <xsd:complexType name="Reserva">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="cliente" nillable="true" type="Cliente"/>
+      <xsd:element minOccurs="0" name="codReserva" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="datDevolucaoEfetiva" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="datDevolucaoPrevista" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="datReserva" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="datRetiradaEfetiva" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="datRetiradaPrevista" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="dscBandeiraCC" nillable="true" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="numCC" nillable="true" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="numCVC" nillable="true" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="qtdKMDevolucao" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="qtdKMRetirada" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="veiculo" nillable="true" type="Veiculo"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="RealizarReserva">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="dadosReserva" type="Reserva"/>
+        <xsd:element name="periodoLocacao" type="xsd:int" />
+        <xsd:element name="numParcelas" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="RealizarReservaResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="dadosReserva" type="Reserva"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  
+</xsd:schema>

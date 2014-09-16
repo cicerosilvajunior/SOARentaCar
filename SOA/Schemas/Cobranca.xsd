@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://soa.rentacar.com.br"
+            targetNamespace="http://soa.rentacar.com.br" elementFormDefault="qualified">
+  <xsd:include schemaLocation="Locacao.xsd"/>
+  
+  
+  <xsd:complexType name="Cobranca">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="codCobranca" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="datCobranca" nillable="true" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="dscCobranca" nillable="true" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="reserva" nillable="true" type="Reserva"/>
+      <xsd:element minOccurs="0" name="valCobranca" nillable="true" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
