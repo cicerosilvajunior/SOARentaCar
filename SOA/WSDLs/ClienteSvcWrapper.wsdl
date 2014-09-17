@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://svc.rentacar.com.br"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns="http://svc.rentacar.com.br"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="ClienteReference">
+        <plnk:role name="ClienteSvcPortType" portType="ns:ClienteSvcPortType"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://svc.rentacar.com.br" location="ClienteSvc.wsdl"/>
+</wsdl:definitions>

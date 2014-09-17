@@ -14,13 +14,17 @@
   <import namespace="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess"
           location="WSDLs/CotacaoProcess.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvcWrapper.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/Application2/SOARentaCar/LocacaoProcess"
           location="WSDLs/LocacaoProcess.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/ProxySvc.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/ProxySvcWrapper.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvc.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvcWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvcWrapper1.wsdl" importType="wsdl"/>
+  <import namespace="http://svc.rentacar.com.br" location="WSDLs/ClienteSvc.wsdl" importType="wsdl"/>
+  <import namespace="http://svc.rentacar.com.br" location="WSDLs/ClienteSvcWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_1.wsdl" importType="wsdl"/>
+  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_1Wrapper.wsdl" importType="wsdl"/>
   <service name="cotacaoprocess_client_ep" ui:wsdlLocation="WSDLs/CotacaoProcess.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.interface(CotacaoProcess)"/>
     <binding.ws port="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.endpoint(cotacaoprocess_client_ep/CotacaoProcess_pt)"/>
@@ -37,7 +41,7 @@
       <service name="cotacaoprocess_client" ui:wsdlLocation="WSDLs/CotacaoProcess.wsdl">
         <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.interface(CotacaoProcess)"/>
       </service>
-      <reference name="VeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvcWrapper.wsdl">
+      <reference name="VeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvcWrapper1.wsdl">
         <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
       </reference>
     </componentType>
@@ -54,6 +58,18 @@
       </reference>
       <reference name="LocacaoReference" ui:wsdlLocation="WSDLs/LocacaoSvcWrapper.wsdl">
         <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
+      </reference>
+     <!-- <reference name="LocacaoVeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvcWrapper1.wsdl">
+        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
+      </reference>-->
+      <reference name="ClienteReference" ui:wsdlLocation="WSDLs/ClienteSvcWrapper.wsdl">
+        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(ClienteSvcPortType)"/>
+      </reference>
+    <!--  <reference name="VeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvcWrapper.wsdl">
+        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
+      </reference>-->
+      <reference name="VeiculoLocacaoReference" ui:wsdlLocation="WSDLs/VeiculoSvc_1Wrapper.wsdl">
+        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
       </reference>
     </componentType>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
@@ -91,6 +107,28 @@
       <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
     </binding.ws>
   </reference>
+  <reference name="ClienteReference" ui:wsdlLocation="WSDLs/ClienteSvc.wsdl">
+    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(ClienteSvcPortType)"/>
+    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(ClienteSvc/ClienteSvcHttpSoap11Endpoint)"
+                location="WSDLs/ClienteSvc.wsdl" soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(ClienteSvc/ClienteSvcHttpSoap12Endpoint)"
+                location="WSDLs/ClienteSvc.wsdl" soapVersion="1.2">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="VeiculoLocacaoReference" ui:wsdlLocation="WSDLs/VeiculoSvc_1.wsdl">
+    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
+    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(VeiculoSvc/VeiculoSvcHttpSoap11Endpoint)"
+                location="http://localhost:8080/axis2/services/VeiculoSvc?wsdl" soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(VeiculoSvc/VeiculoSvcHttpSoap12Endpoint)"
+                location="http://localhost:8080/axis2/services/VeiculoSvc?wsdl" soapVersion="1.2">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
   <wire>
     <source.uri>cotacaoprocess_client_ep</source.uri>
     <target.uri>CotacaoProcess/cotacaoprocess_client</target.uri>
@@ -110,5 +148,13 @@
   <wire>
     <source.uri>LocacaoProcess/LocacaoReference</source.uri>
     <target.uri>LocacaoReference</target.uri>
+  </wire>
+  <wire>
+    <source.uri>LocacaoProcess/ClienteReference</source.uri>
+    <target.uri>ClienteReference</target.uri>
+  </wire>
+  <wire>
+    <source.uri>LocacaoProcess/VeiculoLocacaoReference</source.uri>
+    <target.uri>VeiculoLocacaoReference</target.uri>
   </wire>
 </composite>

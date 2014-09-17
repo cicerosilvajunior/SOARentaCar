@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://svc.rentacar.com.br"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:ns1="http://org.apache.axis2/xsd"
+     xmlns:ns="http://svc.rentacar.com.br"
+     xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+     xmlns:ax25="http://model.rentacar.com.br/xsd"
+     xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    >
+    <wsdl:documentation>VeiculoSvc</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax26="http://model.rentacar.com.br/xsd" attributeFormDefault="qualified" elementFormDefault="qualified"
+             targetNamespace="http://svc.rentacar.com.br">
+            <xs:import namespace="http://model.rentacar.com.br/xsd"/>
+            <xs:element name="GetVeiculosDisponiveis">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="tipoVeiculo" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="datRetirada" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="datDevolucao" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetVeiculosDisponiveisResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax25:Veiculo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="BloquearVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codVeiculo" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="DesbloquearVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codVeiculo" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetVeiculoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax25:Veiculo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateVeiculo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="v" nillable="true" type="ax25:Veiculo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateVeiculoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetVeiculos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="pgnum" type="xs:int"/>
+                        <xs:element minOccurs="0" name="pgsz" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetVeiculosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax25:Veiculo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.rentacar.com.br/xsd">
+            <xs:complexType name="Veiculo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codVeiculo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="dscPlacaVeiculo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="indBloqueado" nillable="true" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="indTipoVeiculo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="qtdKMPermitidoDia" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valDiariaVeiculo" nillable="true" type="xs:double"/>
+                    <xs:element minOccurs="0" name="valKMAdicionalVeiculo" nillable="true" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="BloquearVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:BloquearVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="CreateVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:CreateVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="CreateVeiculoResponse">
+        <wsdl:part name="parameters" element="ns:CreateVeiculoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculosRequest">
+        <wsdl:part name="parameters" element="ns:GetVeiculos"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculosResponse">
+        <wsdl:part name="parameters" element="ns:GetVeiculosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DesbloquearVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:DesbloquearVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculosDisponiveisRequest">
+        <wsdl:part name="parameters" element="ns:GetVeiculosDisponiveis"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculosDisponiveisResponse">
+        <wsdl:part name="parameters" element="ns:GetVeiculosDisponiveisResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculoRequest">
+        <wsdl:part name="parameters" element="ns:GetVeiculo"/>
+    </wsdl:message>
+    <wsdl:message name="GetVeiculoResponse">
+        <wsdl:part name="parameters" element="ns:GetVeiculoResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="VeiculoSvcPortType">
+        <wsdl:operation name="BloquearVeiculo">
+            <wsdl:input message="ns:BloquearVeiculoRequest" wsaw:Action="urn:BloquearVeiculo"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateVeiculo">
+            <wsdl:input message="ns:CreateVeiculoRequest" wsaw:Action="urn:CreateVeiculo"/>
+            <wsdl:output message="ns:CreateVeiculoResponse" wsaw:Action="urn:CreateVeiculoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculos">
+            <wsdl:input message="ns:GetVeiculosRequest" wsaw:Action="urn:GetVeiculos"/>
+            <wsdl:output message="ns:GetVeiculosResponse" wsaw:Action="urn:GetVeiculosResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="DesbloquearVeiculo">
+            <wsdl:input message="ns:DesbloquearVeiculoRequest" wsaw:Action="urn:DesbloquearVeiculo"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculosDisponiveis">
+            <wsdl:input message="ns:GetVeiculosDisponiveisRequest" wsaw:Action="urn:GetVeiculosDisponiveis"/>
+            <wsdl:output message="ns:GetVeiculosDisponiveisResponse" wsaw:Action="urn:GetVeiculosDisponiveisResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculo">
+            <wsdl:input message="ns:GetVeiculoRequest" wsaw:Action="urn:GetVeiculo"/>
+            <wsdl:output message="ns:GetVeiculoResponse" wsaw:Action="urn:GetVeiculoResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="VeiculoSvcSoap11Binding" type="ns:VeiculoSvcPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="BloquearVeiculo">
+            <soap:operation style="document" soapAction="urn:BloquearVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateVeiculo">
+            <soap:operation style="document" soapAction="urn:CreateVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculos">
+            <soap:operation style="document" soapAction="urn:GetVeiculos"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DesbloquearVeiculo">
+            <soap:operation style="document" soapAction="urn:DesbloquearVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculosDisponiveis">
+            <soap:operation style="document" soapAction="urn:GetVeiculosDisponiveis"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculo">
+            <soap:operation style="document" soapAction="urn:GetVeiculo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="VeiculoSvcSoap12Binding" type="ns:VeiculoSvcPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="BloquearVeiculo">
+            <soap12:operation style="document" soapAction="urn:BloquearVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateVeiculo">
+            <soap12:operation style="document" soapAction="urn:CreateVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculos">
+            <soap12:operation style="document" soapAction="urn:GetVeiculos" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DesbloquearVeiculo">
+            <soap12:operation style="document" soapAction="urn:DesbloquearVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculosDisponiveis">
+            <soap12:operation style="document" soapAction="urn:GetVeiculosDisponiveis" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculo">
+            <soap12:operation style="document" soapAction="urn:GetVeiculo" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="VeiculoSvcHttpBinding" type="ns:VeiculoSvcPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="BloquearVeiculo">
+            <http:operation location="BloquearVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="CreateVeiculo">
+            <http:operation location="CreateVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculos">
+            <http:operation location="GetVeiculos"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DesbloquearVeiculo">
+            <http:operation location="DesbloquearVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculosDisponiveis">
+            <http:operation location="GetVeiculosDisponiveis"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetVeiculo">
+            <http:operation location="GetVeiculo"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="VeiculoSvc">
+        <wsdl:port name="VeiculoSvcHttpSoap11Endpoint" binding="ns:VeiculoSvcSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/VeiculoSvc.VeiculoSvcHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="VeiculoSvcHttpSoap12Endpoint" binding="ns:VeiculoSvcSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/VeiculoSvc.VeiculoSvcHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="VeiculoSvcHttpEndpoint" binding="ns:VeiculoSvcHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/VeiculoSvc.VeiculoSvcHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

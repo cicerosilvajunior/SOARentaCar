@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://svc.rentacar.com.br"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:ns1="http://org.apache.axis2/xsd"
+     xmlns:ns="http://svc.rentacar.com.br"
+     xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+     xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+     xmlns:ax21="http://model.rentacar.com.br/xsd"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    >
+    <wsdl:documentation>ClienteSvc</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax22="http://model.rentacar.com.br/xsd" attributeFormDefault="qualified" elementFormDefault="qualified"
+             targetNamespace="http://svc.rentacar.com.br">
+            <xs:import namespace="http://model.rentacar.com.br/xsd"/>
+            <xs:element name="GetClientes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="pgnum" type="xs:int"/>
+                        <xs:element minOccurs="0" name="pgsz" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetClientesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax21:Cliente"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCliente">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetClienteResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax21:Cliente"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SaveCNHStatus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codCliente" type="xs:int"/>
+                        <xs:element minOccurs="0" name="cnh" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="datConsultaCNH" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateCliente">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="c" nillable="true" type="ax21:Cliente"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateClienteResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.rentacar.com.br/xsd">
+            <xs:complexType name="Cliente">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codCliente" type="xs:int"/>
+                    <xs:element minOccurs="0" name="datValidadeConsultaCNH" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="dscCidadeCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dscEnderecoCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dscUFCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nomCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numCNHCliente" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numDocumentoCliente" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="SaveCNHStatusRequest">
+        <wsdl:part name="parameters" element="ns:SaveCNHStatus"/>
+    </wsdl:message>
+    <wsdl:message name="GetClientesRequest">
+        <wsdl:part name="parameters" element="ns:GetClientes"/>
+    </wsdl:message>
+    <wsdl:message name="GetClientesResponse">
+        <wsdl:part name="parameters" element="ns:GetClientesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetClienteRequest">
+        <wsdl:part name="parameters" element="ns:GetCliente"/>
+    </wsdl:message>
+    <wsdl:message name="GetClienteResponse">
+        <wsdl:part name="parameters" element="ns:GetClienteResponse"/>
+    </wsdl:message>
+    <wsdl:message name="CreateClienteRequest">
+        <wsdl:part name="parameters" element="ns:CreateCliente"/>
+    </wsdl:message>
+    <wsdl:message name="CreateClienteResponse">
+        <wsdl:part name="parameters" element="ns:CreateClienteResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ClienteSvcPortType">
+        <wsdl:operation name="SaveCNHStatus">
+            <wsdl:input message="ns:SaveCNHStatusRequest" wsaw:Action="urn:SaveCNHStatus"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientes">
+            <wsdl:input message="ns:GetClientesRequest" wsaw:Action="urn:GetClientes"/>
+            <wsdl:output message="ns:GetClientesResponse" wsaw:Action="urn:GetClientesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCliente">
+            <wsdl:input message="ns:GetClienteRequest" wsaw:Action="urn:GetCliente"/>
+            <wsdl:output message="ns:GetClienteResponse" wsaw:Action="urn:GetClienteResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCliente">
+            <wsdl:input message="ns:CreateClienteRequest" wsaw:Action="urn:CreateCliente"/>
+            <wsdl:output message="ns:CreateClienteResponse" wsaw:Action="urn:CreateClienteResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ClienteSvcSoap11Binding" type="ns:ClienteSvcPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SaveCNHStatus">
+            <soap:operation style="document" soapAction="urn:SaveCNHStatus"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientes">
+            <soap:operation style="document" soapAction="urn:GetClientes"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCliente">
+            <soap:operation style="document" soapAction="urn:GetCliente"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCliente">
+            <soap:operation style="document" soapAction="urn:CreateCliente"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ClienteSvcSoap12Binding" type="ns:ClienteSvcPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SaveCNHStatus">
+            <soap12:operation style="document" soapAction="urn:SaveCNHStatus" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientes">
+            <soap12:operation style="document" soapAction="urn:GetClientes" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCliente">
+            <soap12:operation style="document" soapAction="urn:GetCliente" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCliente">
+            <soap12:operation style="document" soapAction="urn:CreateCliente" soapActionRequired="false"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ClienteSvcHttpBinding" type="ns:ClienteSvcPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="SaveCNHStatus">
+            <http:operation location="SaveCNHStatus"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientes">
+            <http:operation location="GetClientes"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCliente">
+            <http:operation location="GetCliente"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateCliente">
+            <http:operation location="CreateCliente"/>
+            <wsdl:input>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="parameters" type="application/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ClienteSvc">
+        <wsdl:port name="ClienteSvcHttpSoap11Endpoint" binding="ns:ClienteSvcSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/ClienteSvc.ClienteSvcHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ClienteSvcHttpSoap12Endpoint" binding="ns:ClienteSvcSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/ClienteSvc.ClienteSvcHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ClienteSvcHttpEndpoint" binding="ns:ClienteSvcHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/ClienteSvc.ClienteSvcHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

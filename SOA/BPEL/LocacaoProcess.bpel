@@ -46,6 +46,9 @@
     <partnerLink name="locacaoprocess_client" partnerLinkType="client:LocacaoProcess" myRole="LocacaoProcessProvider"/>
     <partnerLink name="ExtServicesReference" partnerLinkType="ns1:ExtServicesReference" partnerRole="ProxySvcPortType"/>
     <partnerLink name="LocacaoReference" partnerLinkType="ns1:LocacaoReference" partnerRole="LocacaoSvcPortType"/>
+    <partnerLink name="ClienteReference" partnerLinkType="ns1:ClienteReference" partnerRole="ClienteSvcPortType"/>
+    <partnerLink name="VeiculoLocacaoReference" partnerLinkType="ns1:VeiculoLocacaoReference"
+                 partnerRole="VeiculoSvcPortType"/>
   </partnerLinks>
 
   <!-- 
@@ -75,6 +78,10 @@
     <variable name="DescricaoCobranca" type="xsd:string"/>
     <variable name="getReservaInput" messageType="ns1:GetReservaRequest"/>
     <variable name="GetReservaOutput" messageType="ns1:GetReservaResponse"/>
+    <variable name="GetVeiculoInput" messageType="ns1:GetVeiculoRequest"/>
+    <variable name="GetVeiculoOutput" messageType="ns1:GetVeiculoResponse"/>
+    <variable name="GetClienteInput" messageType="ns1:GetClienteRequest"/>
+    <variable name="GetClienteOutput" messageType="ns1:GetClienteResponse"/>
   </variables>
 
   <!-- 
@@ -88,21 +95,37 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in LocacaoProcess.wsdl) -->
     <receive name="receiveInput" partnerLink="locacaoprocess_client" portType="client:LocacaoProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="IDVeiculo">
+      <copy>
+        <from>$inputVariable.payload/ns2:codVeiculo</from>
+        <to>$GetVeiculoInput.parameters/ns1:id</to>
+      </copy>
+    </assign>
+    <invoke name="GetVeiculo" partnerLink="VeiculoLocacaoReference"
+            portType="ns1:VeiculoSvcPortType" operation="GetVeiculo" inputVariable="GetVeiculoInput"
+            outputVariable="GetVeiculoOutput" bpelx:invokeAsDetail="no"/>
     <assign name="CalculaValorReserva">
       <copy>
-        <from>$inputVariable.payload/ns2:dadosReserva/ns2:veiculo/ns2:valDiariaVeiculo * $inputVariable.payload/ns2:periodoLocacao</from>
+        <from>$GetVeiculoOutput.parameters/ns1:return/ns3:valDiariaVeiculo * $inputVariable.payload/ns2:periodoLocacao</from>
         <to>$ValorReservaInicial</to>
       </copy>
     </assign>
     <assign name="FormataDescricaoCobranca">
       <copy>
-        <from>concat("Cobrança referente a locaçao do veículo ", $inputVariable.payload/ns2:dadosReserva/ns2:veiculo/ns2:dscPlacaVeiculo)</from>
+        <from>concat("Cobrança referente a locaçao do veículo ", $GetVeiculoOutput.parameters/ns1:return/ns3:dscPlacaVeiculo)</from>
         <to>$DescricaoCobranca</to>
       </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:codCliente</from>
+        <to>$GetClienteInput.parameters/ns1:id</to>
+      </copy>
     </assign>
+    <invoke name="GetCliente" partnerLink="ClienteReference"
+            portType="ns1:ClienteSvcPortType" operation="GetCliente" inputVariable="GetClienteInput"
+            outputVariable="GetClienteOutput" bpelx:invokeAsDetail="no"/>
     <assign name="DadosCNH">
       <copy>
-        <from>$inputVariable.payload/ns2:dadosReserva/ns2:cliente/ns2:numCNHCliente</from>
+        <from>$GetClienteOutput.parameters/ns1:return/ns3:numCNHCliente</from>
         <to>$numCNH.parameters/ns1:cnh</to>
       </copy>
     </assign>
@@ -114,15 +137,15 @@
       <sequence name="Sequence1">
         <assign name="DadosCartaoCredito">
           <copy>
-            <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCC</from>
+            <from>$inputVariable.payload/ns2:numCC</from>
             <to>$cartaoCredito.parameters/ns1:cc</to>
           </copy>
           <copy>
-            <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCVC</from>
+            <from>$inputVariable.payload/ns2:numCVC</from>
             <to>$cartaoCredito.parameters/ns1:cvc</to>
           </copy>
           <copy>
-            <from>$inputVariable.payload/ns2:dadosReserva/ns2:dscBandeiraCC</from>
+            <from>$inputVariable.payload/ns2:dscBandeiraCC</from>
             <to>$cartaoCredito.parameters/ns1:bandeira</to>
           </copy>
         </assign>
@@ -134,19 +157,19 @@
           <sequence name="Sequence2">
             <assign name="DadosReserva">
               <copy>
-                <from>$inputVariable.payload/ns2:dadosReserva/ns2:cliente/ns2:codCliente</from>
+                <from>$inputVariable.payload/ns2:codCliente</from>
                 <to>$dadosReserva.parameters/ns1:codCliente</to>
               </copy>
               <copy>
-                <from>$inputVariable.payload/ns2:dadosReserva/ns2:veiculo/ns2:codVeiculo</from>
+                <from>$inputVariable.payload/ns2:codVeiculo</from>
                 <to>$dadosReserva.parameters/ns1:codVeiculo</to>
               </copy>
               <copy>
-                <from>$inputVariable.payload/ns2:dadosReserva/ns2:datRetiradaPrevista</from>
+                <from>$inputVariable.payload/ns2:datRetiradaPrevista</from>
                 <to>$dadosReserva.parameters/ns1:datRetiradaPrevista</to>
               </copy>
               <copy>
-                <from>$inputVariable.payload/ns2:dadosReserva/ns2:datRetiradaPrevista</from>
+                <from>$inputVariable.payload/ns2:datDevolucaoPrevista</from>
                 <to>$dadosReserva.parameters/ns1:datDevolucaoPrevista</to>
               </copy>
             </assign>
@@ -158,7 +181,7 @@
               <sequence>
                 <assign name="DadosAutorizacaoCartao">
                   <copy>
-                    <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCC</from>
+                    <from>$inputVariable.payload/ns2:numCC</from>
                     <to>$DadosAutorizaPagamentoInput.parameters/ns1:numCC</to>
                   </copy>
                   <copy>
@@ -170,7 +193,7 @@
                     <to>$DadosAutorizaPagamentoInput.parameters/ns1:valCobranca</to>
                   </copy>
                   <copy>
-                    <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCVC</from>
+                    <from>$inputVariable.payload/ns2:numCVC</from>
                     <to>$DadosAutorizaPagamentoInput.parameters/ns1:numCVC</to>
                   </copy>
                 </assign>
@@ -194,11 +217,11 @@
                         <to>$DadosCobrancaInput.parameters/ns1:valCobranca</to>
                       </copy>
                       <copy>
-                        <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCC</from>
+                        <from>$inputVariable.payload/ns2:numCC</from>
                         <to>$DadosCobrancaInput.parameters/ns1:numCC</to>
                       </copy>
                       <copy>
-                        <from>$inputVariable.payload/ns2:dadosReserva/ns2:numCVC</from>
+                        <from>$inputVariable.payload/ns2:numCVC</from>
                         <to>$DadosCobrancaInput.parameters/ns1:numCVC</to>
                       </copy>
                     </assign>
