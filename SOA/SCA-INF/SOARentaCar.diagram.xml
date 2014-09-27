@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
     <dgm:gService name="cotacaoprocess_client_ep">
-        <dgm:body borderWidth="2" arcRad="20" X="21" Y="700" width="137" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="1420" width="137" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="11" Y="693" width="156" height="98">
+        <dgm:shadow arcRad="20" X="11" Y="1413" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:outputPort name="cotacaoprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.interface(CotacaoProcess)"/>
@@ -15,11 +15,11 @@
         </dgm:operations>
     </dgm:gService>
     <dgm:gService name="locacaoprocess_client_ep">
-        <dgm:body borderWidth="2" arcRad="20" X="21" Y="286" width="137" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="1006" width="137" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="11" Y="279" width="156" height="98">
+        <dgm:shadow arcRad="20" X="11" Y="999" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:outputPort name="locacaoprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/LocacaoProcess#wsdl.interface(LocacaoProcess)"/>
@@ -28,12 +28,40 @@
             <dgm:item>process</dgm:item>
         </dgm:operations>
     </dgm:gService>
-    <dgm:gReference name="VeiculoReference">
-        <dgm:body borderWidth="2" arcRad="20" X="488" Y="700" width="136" height="144">
+    <dgm:gService name="bpelretiradaprocess_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="546" width="137" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="478" Y="693" width="156" height="158">
+        <dgm:shadow arcRad="20" X="11" Y="539" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="bpelretiradaprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess#wsdl.interface(BPELRetiradaProcess)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gService name="devolucaoprocess_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="237" width="137" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="230" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="devolucaoprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess#wsdl.interface(DevolucaoProcess)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="VeiculoReference">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="1420" width="136" height="144">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="676" Y="1413" width="156" height="158">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="VeiculoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
@@ -48,11 +76,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="ExtServicesReference">
-        <dgm:body borderWidth="2" arcRad="20" X="488" Y="26" width="136" height="108">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="746" width="136" height="108">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="478" Y="19" width="156" height="122">
+        <dgm:shadow arcRad="20" X="676" Y="739" width="156" height="122">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="ExtServicesReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(ProxySvcPortType)"/>
@@ -64,11 +92,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="LocacaoReference">
-        <dgm:body borderWidth="2" arcRad="20" X="488" Y="168" width="136" height="168">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="888" width="136" height="168">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="478" Y="161" width="156" height="182">
+        <dgm:shadow arcRad="20" X="676" Y="881" width="156" height="182">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="LocacaoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
@@ -87,11 +115,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="ClienteReference">
-        <dgm:body borderWidth="2" arcRad="20" X="488" Y="370" width="136" height="120">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="1090" width="136" height="120">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="478" Y="363" width="156" height="134">
+        <dgm:shadow arcRad="20" X="676" Y="1083" width="156" height="134">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="ClienteReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(ClienteSvcPortType)"/>
@@ -104,11 +132,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="VeiculoLocacaoReference">
-        <dgm:body borderWidth="2" arcRad="20" X="488" Y="524" width="136" height="144">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="1244" width="136" height="144">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="478" Y="517" width="156" height="158">
+        <dgm:shadow arcRad="20" X="676" Y="1237" width="156" height="158">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="VeiculoLocacaoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
@@ -122,13 +150,94 @@
             <dgm:item>GetVeiculo</dgm:item>
         </dgm:operations>
     </dgm:gReference>
+    <dgm:gReference name="SOAPReference">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="546" width="136" height="168">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="676" Y="539" width="156" height="182">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="SOAPReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>GetReservas</dgm:item>
+            <dgm:item>SetDevolucaoVeiculo</dgm:item>
+            <dgm:item>GetCobrancas</dgm:item>
+            <dgm:item>SetRetiradaVeiculo</dgm:item>
+            <dgm:item>GetQuilometragemAdicional</dgm:item>
+            <dgm:item>GetValorQuilometragemAdicional</dgm:item>
+            <dgm:item>CancelaReserva</dgm:item>
+            <dgm:item>CreateReserva</dgm:item>
+            <dgm:item>CreateCobranca</dgm:item>
+            <dgm:item>GetReserva</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="LocacaoDevolucaoReference">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="26" width="136" height="168">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="676" Y="19" width="156" height="182">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="LocacaoDevolucaoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>GetReservas</dgm:item>
+            <dgm:item>SetDevolucaoVeiculo</dgm:item>
+            <dgm:item>GetCobrancas</dgm:item>
+            <dgm:item>SetRetiradaVeiculo</dgm:item>
+            <dgm:item>GetQuilometragemAdicional</dgm:item>
+            <dgm:item>GetValorQuilometragemAdicional</dgm:item>
+            <dgm:item>CancelaReserva</dgm:item>
+            <dgm:item>CreateReserva</dgm:item>
+            <dgm:item>CreateCobranca</dgm:item>
+            <dgm:item>GetReserva</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="CartaoReference">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="228" width="136" height="108">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="676" Y="221" width="156" height="122">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="CartaoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(ProxySvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>IsCNHValid</dgm:item>
+            <dgm:item>PaymentAuthorized</dgm:item>
+            <dgm:item>IsCCValid</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="DevolucaoVeiculoReference">
+        <dgm:body borderWidth="2" arcRad="20" X="686" Y="370" width="136" height="144">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="676" Y="363" width="156" height="158">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="DevolucaoVeiculoReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>BloquearVeiculo</dgm:item>
+            <dgm:item>CreateVeiculo</dgm:item>
+            <dgm:item>GetVeiculos</dgm:item>
+            <dgm:item>DesbloquearVeiculo</dgm:item>
+            <dgm:item>GetVeiculosDisponiveis</dgm:item>
+            <dgm:item>GetVeiculo</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
     <dgm:gComponent name="CotacaoProcess">
-        <dgm:body borderWidth="2" arcRad="20" X="274" Y="685" width="130" height="61">
+        <dgm:body borderWidth="2" arcRad="20" X="274" Y="1405" width="130" height="61">
             <dgm:borderColor r="69" g="113" b="140"/>
             <dgm:lightBgColor r="166" g="208" b="230"/>
             <dgm:darkBgColor r="99" g="162" b="201"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="264" Y="678" width="150" height="77">
+        <dgm:shadow arcRad="20" X="264" Y="1398" width="150" height="77">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="cotacaoprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.interface(CotacaoProcess)"/>
@@ -136,12 +245,12 @@
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
     <dgm:gComponent name="LocacaoProcess">
-        <dgm:body borderWidth="2" arcRad="20" X="274" Y="271" width="130" height="136">
+        <dgm:body borderWidth="2" arcRad="20" X="473" Y="991" width="130" height="136">
             <dgm:borderColor r="69" g="113" b="140"/>
             <dgm:lightBgColor r="166" g="208" b="230"/>
             <dgm:darkBgColor r="99" g="162" b="201"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="264" Y="264" width="150" height="152">
+        <dgm:shadow arcRad="20" X="463" Y="984" width="150" height="152">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="locacaoprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/LocacaoProcess#wsdl.interface(LocacaoProcess)"/>
@@ -151,46 +260,110 @@
         <dgm:outputPort name="VeiculoLocacaoReference" X="120" Y="90" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
+    <dgm:gComponent name="BPELRetiradaProcess">
+        <dgm:body borderWidth="2" arcRad="20" X="274" Y="531" width="130" height="61">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="264" Y="524" width="150" height="77">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="bpelretiradaprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess#wsdl.interface(BPELRetiradaProcess)"/>
+        <dgm:outputPort name="LocacaoReference" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gComponent name="DevolucaoProcess">
+        <dgm:body borderWidth="2" arcRad="20" X="473" Y="222" width="130" height="111">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="463" Y="215" width="150" height="127">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="devolucaoprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess#wsdl.interface(DevolucaoProcess)"/>
+        <dgm:outputPort name="LocacaoDevolucaoReference" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
+        <dgm:outputPort name="CartaoReference" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(ProxySvcPortType)"/>
+        <dgm:outputPort name="DevolucaoVeiculoReference" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
     <dgm:gWireLink source="cotacaoprocess_client_ep" target="CotacaoProcess/cotacaoprocess_client" width="2">
-        <dgm:gSegment X1="168" Y1="710" X2="264" Y2="710"/>
+        <dgm:gSegment X1="168" Y1="1430" X2="264" Y2="1430"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="CotacaoProcess/VeiculoReference" target="VeiculoReference" width="2">
-        <dgm:gSegment X1="414" Y1="710" X2="478" Y2="710"/>
+        <dgm:gSegment X1="414" Y1="1430" X2="676" Y2="1430"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="locacaoprocess_client_ep" target="LocacaoProcess/locacaoprocess_client" width="2">
-        <dgm:gSegment X1="168" Y1="296" X2="264" Y2="296"/>
+        <dgm:gSegment X1="168" Y1="1016" X2="463" Y2="1016"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="LocacaoProcess/ExtServicesReference" target="ExtServicesReference" width="2">
-        <dgm:gSegment X1="414" Y1="296" X2="439" Y2="296"/>
-        <dgm:gSegment X1="439" Y1="296" X2="439" Y2="36"/>
-        <dgm:gSegment X1="439" Y1="36" X2="478" Y2="36"/>
+        <dgm:gSegment X1="613" Y1="1016" X2="637" Y2="1016"/>
+        <dgm:gSegment X1="637" Y1="1016" X2="637" Y2="756"/>
+        <dgm:gSegment X1="637" Y1="756" X2="676" Y2="756"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="LocacaoProcess/LocacaoReference" target="LocacaoReference" width="2">
-        <dgm:gSegment X1="414" Y1="321" X2="454" Y2="321"/>
-        <dgm:gSegment X1="454" Y1="321" X2="454" Y2="178"/>
-        <dgm:gSegment X1="454" Y1="178" X2="478" Y2="178"/>
+        <dgm:gSegment X1="613" Y1="1041" X2="652" Y2="1041"/>
+        <dgm:gSegment X1="652" Y1="1041" X2="652" Y2="898"/>
+        <dgm:gSegment X1="652" Y1="898" X2="676" Y2="898"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="LocacaoProcess/ClienteReference" target="ClienteReference" width="2">
-        <dgm:gSegment X1="414" Y1="346" X2="454" Y2="346"/>
-        <dgm:gSegment X1="454" Y1="346" X2="454" Y2="380"/>
-        <dgm:gSegment X1="454" Y1="380" X2="478" Y2="380"/>
+        <dgm:gSegment X1="613" Y1="1066" X2="652" Y2="1066"/>
+        <dgm:gSegment X1="652" Y1="1066" X2="652" Y2="1100"/>
+        <dgm:gSegment X1="652" Y1="1100" X2="676" Y2="1100"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="LocacaoProcess/VeiculoLocacaoReference" target="VeiculoLocacaoReference" width="2">
-        <dgm:gSegment X1="414" Y1="371" X2="439" Y2="371"/>
-        <dgm:gSegment X1="439" Y1="371" X2="439" Y2="534"/>
-        <dgm:gSegment X1="439" Y1="534" X2="478" Y2="534"/>
+        <dgm:gSegment X1="613" Y1="1091" X2="637" Y2="1091"/>
+        <dgm:gSegment X1="637" Y1="1091" X2="637" Y2="1254"/>
+        <dgm:gSegment X1="637" Y1="1254" X2="676" Y2="1254"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="bpelretiradaprocess_client_ep" target="BPELRetiradaProcess/bpelretiradaprocess_client" width="2">
+        <dgm:gSegment X1="168" Y1="556" X2="264" Y2="556"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="BPELRetiradaProcess/LocacaoReference" target="SOAPReference" width="2">
+        <dgm:gSegment X1="414" Y1="556" X2="676" Y2="556"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="devolucaoprocess_client_ep" target="DevolucaoProcess/devolucaoprocess_client" width="2">
+        <dgm:gSegment X1="168" Y1="247" X2="463" Y2="247"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="DevolucaoProcess/LocacaoDevolucaoReference" target="LocacaoDevolucaoReference" width="2">
+        <dgm:gSegment X1="613" Y1="247" X2="637" Y2="247"/>
+        <dgm:gSegment X1="637" Y1="247" X2="637" Y2="36"/>
+        <dgm:gSegment X1="637" Y1="36" X2="676" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="DevolucaoProcess/CartaoReference" target="CartaoReference" width="2">
+        <dgm:gSegment X1="613" Y1="272" X2="652" Y2="272"/>
+        <dgm:gSegment X1="652" Y1="272" X2="652" Y2="238"/>
+        <dgm:gSegment X1="652" Y1="238" X2="676" Y2="238"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="DevolucaoProcess/DevolucaoVeiculoReference" target="DevolucaoVeiculoReference" width="2">
+        <dgm:gSegment X1="613" Y1="297" X2="637" Y2="297"/>
+        <dgm:gSegment X1="637" Y1="297" X2="637" Y2="380"/>
+        <dgm:gSegment X1="637" Y1="380" X2="676" Y2="380"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>

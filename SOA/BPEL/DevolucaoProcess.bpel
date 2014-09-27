@@ -1,0 +1,261 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Sep 27 13:42:13 BRT 2014
+  Author:  Vida
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="DevolucaoProcess"
+               targetNamespace="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://svc.rentacar.com.br"
+         xmlns:ns2="http://soa.rentacar.com.br"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:ns3="http://model.rentacar.com.br/xsd" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess" location="../WSDLs/DevolucaoProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="devolucaoprocess_client" partnerLinkType="client:DevolucaoProcess" myRole="DevolucaoProcessProvider"/>
+    <partnerLink name="LocacaoDevolucaoReference" partnerLinkType="ns1:LocacaoDevolucaoReference"
+                 partnerRole="LocacaoSvcPortType"/>
+    <partnerLink name="CartaoReference" partnerLinkType="ns1:CartaoReference" partnerRole="ProxySvcPortType"/>
+    <partnerLink name="DevolucaoVeiculoReference" partnerLinkType="ns1:DevolucaoVeiculoReference"
+                 partnerRole="VeiculoSvcPortType"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:DevolucaoProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:DevolucaoProcessResponseMessage"/>
+    <variable name="GetReservaInputVariable" messageType="ns1:GetReservaRequest"/>
+    <variable name="GetReservaOutputVariable" messageType="ns1:GetReservaResponse"/>
+    <variable name="DiferencaKM" type="xsd:int"/>
+    <variable name="ValorDiferencaKM" type="xsd:double"/>
+    <variable name="SetDevolucaoVeiculoInput" messageType="ns1:SetDevolucaoVeiculoRequest"/>
+    <variable name="GetQuilometragemAdicionalInput" messageType="ns1:GetQuilometragemAdicionalRequest"/>
+    <variable name="GetQuilometragemAdicionalOutput" messageType="ns1:GetQuilometragemAdicionalResponse"/>
+    <variable name="GetValorQuilometragemAdicionalInput" messageType="ns1:GetValorQuilometragemAdicionalRequest"/>
+    <variable name="GetValorQuilometragemAdicionalOutput" messageType="ns1:GetValorQuilometragemAdicionalResponse"/>
+    <variable name="PaymentAuthorizedInput" messageType="ns1:PaymentAuthorizedRequest"/>
+    <variable name="PaymentAuthorizedOutput" messageType="ns1:PaymentAuthorizedResponse"/>
+    <variable name="CreateCobrancaInput" messageType="ns1:CreateCobrancaRequest"/>
+    <variable name="DesbloquearVeiculoInput" messageType="ns1:DesbloquearVeiculoRequest"/>
+    <variable name="DesbloqueiaVeiculoSemDebitoInput" messageType="ns1:DesbloquearVeiculoRequest"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in DevolucaoProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="devolucaoprocess_client" portType="client:DevolucaoProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="IdReserva">
+      <copy>
+        <from>$inputVariable.payload/ns2:codReserva</from>
+        <to>$GetReservaInputVariable.parameters/ns1:codReserva</to>
+      </copy>
+    </assign>
+    <invoke name="ConsultaReserva" partnerLink="LocacaoDevolucaoReference" portType="ns1:LocacaoSvcPortType"
+            operation="GetReserva" inputVariable="GetReservaInputVariable" outputVariable="GetReservaOutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="VerificaDataDevolucao">
+      <condition>$GetReservaOutputVariable.parameters/ns1:return/ns3:datDevolucaoPrevista=$inputVariable.payload/ns2:datDevolucaoEfetiva</condition>
+      <sequence name="Sequence1">
+        <assign name="DadosDevolucao">
+          <copy>
+            <from>$inputVariable.payload/ns2:codReserva</from>
+            <to>$SetDevolucaoVeiculoInput.parameters/ns1:codReserva</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns2:datDevolucaoEfetiva</from>
+            <to>$SetDevolucaoVeiculoInput.parameters/ns1:datDevolucao</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns2:kmAtual</from>
+            <to>$SetDevolucaoVeiculoInput.parameters/ns1:kmAtual</to>
+          </copy>
+        </assign>
+        <invoke name="AtualizarDataDevolucaoReserva" partnerLink="LocacaoDevolucaoReference"
+                portType="ns1:LocacaoSvcPortType" operation="SetDevolucaoVeiculo"
+                inputVariable="SetDevolucaoVeiculoInput" bpelx:invokeAsDetail="no"/>
+        <assign name="DadosKMReserva">
+          <copy>
+            <from>$inputVariable.payload/ns2:codReserva</from>
+            <to>$GetQuilometragemAdicionalInput.parameters/ns1:codReserva</to>
+          </copy>
+        </assign>
+        <invoke name="KMAdicional" partnerLink="LocacaoDevolucaoReference"
+                portType="ns1:LocacaoSvcPortType" operation="GetQuilometragemAdicional"
+                inputVariable="GetQuilometragemAdicionalInput" outputVariable="GetQuilometragemAdicionalOutput"
+                bpelx:invokeAsDetail="no"/>
+        <if name="ExisteKMAdicional">
+          <condition>$GetQuilometragemAdicionalOutput.parameters/ns1:return&gt;0</condition>
+          <sequence>
+            <assign name="ValorKMAdicional">
+              <copy>
+                <from>$inputVariable.payload/ns2:codReserva</from>
+                <to>$GetValorQuilometragemAdicionalInput.parameters/ns1:codReserva</to>
+              </copy>
+              <copy>
+                <from>$GetQuilometragemAdicionalOutput.parameters/ns1:return</from>
+                <to>$GetValorQuilometragemAdicionalInput.parameters/ns1:kmExcedente</to>
+              </copy>
+            </assign>
+            <invoke name="GetValorAdicional" partnerLink="LocacaoDevolucaoReference" portType="ns1:LocacaoSvcPortType"
+                    operation="GetValorQuilometragemAdicional" inputVariable="GetValorQuilometragemAdicionalInput"
+                    outputVariable="GetValorQuilometragemAdicionalOutput" bpelx:invokeAsDetail="no"/>
+            <assign name="DadosCartao">
+              <copy>
+                <from>$GetValorQuilometragemAdicionalOutput.parameters/ns1:return</from>
+                <to>$PaymentAuthorizedInput.parameters/ns1:valCobranca</to>
+              </copy>
+              <copy>
+                <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:numCC</from>
+                <to>$PaymentAuthorizedInput.parameters/ns1:numCC</to>
+              </copy>
+              <copy>
+                <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:numCVC</from>
+                <to>$PaymentAuthorizedInput.parameters/ns1:numCVC</to>
+              </copy>
+              <copy>
+                <from>$inputVariable.payload/ns2:numParcelas</from>
+                <to>$PaymentAuthorizedInput.parameters/ns1:numParcelas</to>
+              </copy>
+              <copy>
+                <from>concat("Cobrança referente a quilometragem adicional do veiculo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo)</from>
+                <to>$PaymentAuthorizedInput.parameters/ns1:dscCobranca</to>
+              </copy>
+            </assign>
+            <invoke name="AutorizaCartao" partnerLink="CartaoReference"
+                    portType="ns1:ProxySvcPortType" operation="PaymentAuthorized"
+                    inputVariable="PaymentAuthorizedInput" outputVariable="PaymentAuthorizedOutput"
+                    bpelx:invokeAsDetail="no"/>
+            <if name="CartaoAutorizado">
+              <condition>$PaymentAuthorizedOutput.parameters/ns1:return="true"</condition>
+              <sequence name="Sequence4">
+                <assign name="DadosCobranca">
+                  <copy>
+                    <from>$inputVariable.payload/ns2:codReserva</from>
+                    <to>$CreateCobrancaInput.parameters/ns1:codReserva</to>
+                  </copy>
+                  <copy>
+                    <from>$GetValorQuilometragemAdicionalOutput.parameters/ns1:return</from>
+                    <to>$CreateCobrancaInput.parameters/ns1:valCobranca</to>
+                  </copy>
+                  <copy>
+                    <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:numCC</from>
+                    <to>$CreateCobrancaInput.parameters/ns1:numCC</to>
+                  </copy>
+                  <copy>
+                    <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:numCVC</from>
+                    <to>$CreateCobrancaInput.parameters/ns1:numCVC</to>
+                  </copy>
+                  <copy>
+                    <from>concat("Cobrança referente a quilometragem adicional do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo)</from>
+                    <to>$CreateCobrancaInput.parameters/ns1:dscCobranca</to>
+                  </copy>
+                </assign>
+                <invoke name="GravaCobranca" partnerLink="LocacaoDevolucaoReference" portType="ns1:LocacaoSvcPortType"
+                        operation="CreateCobranca" inputVariable="CreateCobrancaInput" bpelx:invokeAsDetail="no"/>
+                <assign name="IdVeiculo">
+                  <copy>
+                    <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:codVeiculo</from>
+                    <to>$DesbloquearVeiculoInput.parameters/ns1:codVeiculo</to>
+                  </copy>
+                </assign>
+                <invoke name="DesbloquearVeiculo" partnerLink="DevolucaoVeiculoReference"
+                        portType="ns1:VeiculoSvcPortType" operation="DesbloquearVeiculo"
+                        inputVariable="DesbloquearVeiculoInput" bpelx:invokeAsDetail="no"/>
+                <assign name="MsgCobrancaRealizada">
+                  <copy>
+                    <from>concat("Devolução do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo, " realizada com sucesso.")</from>
+                    <to>$outputVariable.payload/ns2:descStatusReserva</to>
+                  </copy>
+                </assign>
+              </sequence>
+              <else>
+                <assign name="CartaoNaoAutorizado">
+                  <copy>
+                    <from>"Cartão não autorizado. Providenciar outro meio de pagamento e tratativas."</from>
+                    <to>$outputVariable.payload/ns2:descStatusReserva</to>
+                  </copy>
+                </assign>
+              </else>
+            </if>
+          </sequence>
+          <else>
+            <sequence>
+              <assign name="IdVeiculoSemDebito">
+                <copy>
+                  <from>$GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:codVeiculo</from>
+                  <to>$DesbloqueiaVeiculoSemDebitoInput.parameters/ns1:codVeiculo</to>
+                </copy>
+              </assign>
+              <invoke name="DesbloqueiaVeiculoSemDebito"
+                      partnerLink="DevolucaoVeiculoReference" portType="ns1:VeiculoSvcPortType"
+                      operation="DesbloquearVeiculo" inputVariable="DesbloqueiaVeiculoSemDebitoInput"
+                      bpelx:invokeAsDetail="no"/>
+              <assign name="MsgDevolucaoVeiculo">
+                <copy>
+                  <from>concat("Devolução do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo, " realizada com sucesso.")</from>
+                  <to>$outputVariable.payload/ns2:descStatusReserva</to>
+                </copy>
+              </assign>
+            </sequence>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <assign name="DataDevolucaoDiferente">
+          <copy>
+            <from>"A data de devolução não confere com a data prevista. Necessário calcular diferença de período e providenciar tratativa manual."</from>
+            <to>$outputVariable.payload/ns2:descStatusReserva</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="devolucaoprocess_client" portType="client:DevolucaoProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

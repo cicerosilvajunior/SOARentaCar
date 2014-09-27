@@ -1,0 +1,32 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="BPELRetiradaProcess"
+     targetNamespace="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
+     xmlns:ns1="http://soa.rentacar.com.br"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    >
+    <plnk:partnerLinkType name="BPELRetiradaProcess">
+        <plnk:role name="BPELRetiradaProcessProvider" portType="client:BPELRetiradaProcess"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
+             xmlns:ns1="http://soa.rentacar.com.br" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+            <import namespace="http://soa.rentacar.com.br" schemaLocation="../Schemas/Locacao.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BPELRetiradaProcessRequestMessage">
+        <wsdl:part name="payload" element="ns1:RegistraRetirada"/>
+    </wsdl:message>
+    <wsdl:message name="BPELRetiradaProcessResponseMessage">
+        <wsdl:part name="payload" element="ns1:RegistraRetiradaResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="BPELRetiradaProcess">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:BPELRetiradaProcessRequestMessage"/>
+            <wsdl:output message="client:BPELRetiradaProcessResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

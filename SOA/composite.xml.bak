@@ -25,18 +25,6 @@
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/ClienteSvcWrapper.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_1.wsdl" importType="wsdl"/>
   <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_1Wrapper.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
-          location="WSDLs/BPELRetiradaProcess.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvc_1.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvc_1Wrapper.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess"
-          location="WSDLs/DevolucaoProcess.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvc_2.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/LocacaoSvc_2Wrapper.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/ProxySvc_1.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/ProxySvc_1Wrapper.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_3.wsdl" importType="wsdl"/>
-  <import namespace="http://svc.rentacar.com.br" location="WSDLs/VeiculoSvc_3Wrapper.wsdl" importType="wsdl"/>
   <service name="cotacaoprocess_client_ep" ui:wsdlLocation="WSDLs/CotacaoProcess.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.interface(CotacaoProcess)"/>
     <binding.ws port="http://xmlns.oracle.com/Application2/SOARentaCar/CotacaoProcess#wsdl.endpoint(cotacaoprocess_client_ep/CotacaoProcess_pt)"/>
@@ -44,14 +32,6 @@
   <service name="locacaoprocess_client_ep" ui:wsdlLocation="WSDLs/LocacaoProcess.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/LocacaoProcess#wsdl.interface(LocacaoProcess)"/>
     <binding.ws port="http://xmlns.oracle.com/Application2/SOARentaCar/LocacaoProcess#wsdl.endpoint(locacaoprocess_client_ep/LocacaoProcess_pt)"/>
-  </service>
-  <service name="bpelretiradaprocess_client_ep" ui:wsdlLocation="WSDLs/BPELRetiradaProcess.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess#wsdl.interface(BPELRetiradaProcess)"/>
-    <binding.ws port="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess#wsdl.endpoint(bpelretiradaprocess_client_ep/BPELRetiradaProcess_pt)"/>
-  </service>
-  <service name="devolucaoprocess_client_ep" ui:wsdlLocation="WSDLs/DevolucaoProcess.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess#wsdl.interface(DevolucaoProcess)"/>
-    <binding.ws port="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess#wsdl.endpoint(devolucaoprocess_client_ep/DevolucaoProcess_pt)"/>
   </service>
   <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
   <property name="compositeID" type="xs:string" many="false">dc34b2ed-3a4a-40da-8572-0c6a2836cac8</property>
@@ -89,36 +69,6 @@
         <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
       </reference>-->
       <reference name="VeiculoLocacaoReference" ui:wsdlLocation="WSDLs/VeiculoSvc_1Wrapper.wsdl">
-        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
-      </reference>
-    </componentType>
-    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
-  </component>
-  <component name="BPELRetiradaProcess" version="2.0">
-    <implementation.bpel src="BPEL/BPELRetiradaProcess.bpel"/>
-    <componentType>
-      <service name="bpelretiradaprocess_client" ui:wsdlLocation="WSDLs/BPELRetiradaProcess.wsdl">
-        <interface.wsdl interface="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess#wsdl.interface(BPELRetiradaProcess)"/>
-      </service>
-      <reference name="LocacaoReference" ui:wsdlLocation="WSDLs/LocacaoSvc_1Wrapper.wsdl">
-        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
-      </reference>
-    </componentType>
-    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
-  </component>
-  <component name="DevolucaoProcess" version="2.0">
-    <implementation.bpel src="BPEL/DevolucaoProcess.bpel"/>
-    <componentType>
-      <service name="devolucaoprocess_client" ui:wsdlLocation="WSDLs/DevolucaoProcess.wsdl">
-        <interface.wsdl interface="http://xmlns.oracle.com/SOARentaCar/SOARentaCar/DevolucaoProcess#wsdl.interface(DevolucaoProcess)"/>
-      </service>
-      <reference name="LocacaoDevolucaoReference" ui:wsdlLocation="WSDLs/LocacaoSvc_2Wrapper.wsdl">
-        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
-      </reference>
-      <reference name="CartaoReference" ui:wsdlLocation="WSDLs/ProxySvc_1Wrapper.wsdl">
-        <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(ProxySvcPortType)"/>
-      </reference>
-      <reference name="DevolucaoVeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvc_3Wrapper.wsdl">
         <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
       </reference>
     </componentType>
@@ -179,50 +129,6 @@
       <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
     </binding.ws>
   </reference>
-  <reference name="SOAPReference" ui:wsdlLocation="WSDLs/LocacaoSvc_1.wsdl">
-    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(LocacaoSvc/LocacaoSvcHttpSoap11Endpoint)"
-                location="http://localhost:8080/axis2/services/LocacaoSvc?wsdl" soapVersion="1.1">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(LocacaoSvc/LocacaoSvcHttpSoap12Endpoint)"
-                location="http://localhost:8080/axis2/services/LocacaoSvc?wsdl" soapVersion="1.2">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-  </reference>
-  <reference name="LocacaoDevolucaoReference" ui:wsdlLocation="WSDLs/LocacaoSvc_2.wsdl">
-    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(LocacaoSvcPortType)"/>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(LocacaoSvc/LocacaoSvcHttpSoap11Endpoint)"
-                location="http://localhost:8080/axis2/services/LocacaoSvc?wsdl" soapVersion="1.1">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(LocacaoSvc/LocacaoSvcHttpSoap12Endpoint)"
-                location="http://localhost:8080/axis2/services/LocacaoSvc?wsdl" soapVersion="1.2">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-  </reference>
-  <reference name="CartaoReference" ui:wsdlLocation="WSDLs/ProxySvc_1.wsdl">
-    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(ProxySvcPortType)"/>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(ProxySvc/ProxySvcHttpSoap11Endpoint)"
-                location="http://localhost:8080/axis2/services/ProxySvc?wsdl" soapVersion="1.1">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(ProxySvc/ProxySvcHttpSoap12Endpoint)"
-                location="http://localhost:8080/axis2/services/ProxySvc?wsdl" soapVersion="1.2">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-  </reference>
-  <reference name="DevolucaoVeiculoReference" ui:wsdlLocation="WSDLs/VeiculoSvc_3.wsdl">
-    <interface.wsdl interface="http://svc.rentacar.com.br#wsdl.interface(VeiculoSvcPortType)"/>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(VeiculoSvc/VeiculoSvcHttpSoap11Endpoint)"
-                location="http://localhost:8080/axis2/services/VeiculoSvc?wsdl" soapVersion="1.1">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-    <binding.ws port="http://svc.rentacar.com.br#wsdl.endpoint(VeiculoSvc/VeiculoSvcHttpSoap12Endpoint)"
-                location="http://localhost:8080/axis2/services/VeiculoSvc?wsdl" soapVersion="1.2">
-      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-  </reference>
   <wire>
     <source.uri>cotacaoprocess_client_ep</source.uri>
     <target.uri>CotacaoProcess/cotacaoprocess_client</target.uri>
@@ -250,29 +156,5 @@
   <wire>
     <source.uri>LocacaoProcess/VeiculoLocacaoReference</source.uri>
     <target.uri>VeiculoLocacaoReference</target.uri>
-  </wire>
-  <wire>
-    <source.uri>bpelretiradaprocess_client_ep</source.uri>
-    <target.uri>BPELRetiradaProcess/bpelretiradaprocess_client</target.uri>
-  </wire>
-  <wire>
-    <source.uri>BPELRetiradaProcess/LocacaoReference</source.uri>
-    <target.uri>SOAPReference</target.uri>
-  </wire>
-  <wire>
-    <source.uri>devolucaoprocess_client_ep</source.uri>
-    <target.uri>DevolucaoProcess/devolucaoprocess_client</target.uri>
-  </wire>
-  <wire>
-    <source.uri>DevolucaoProcess/LocacaoDevolucaoReference</source.uri>
-    <target.uri>LocacaoDevolucaoReference</target.uri>
-  </wire>
-  <wire>
-    <source.uri>DevolucaoProcess/CartaoReference</source.uri>
-    <target.uri>CartaoReference</target.uri>
-  </wire>
-  <wire>
-    <source.uri>DevolucaoProcess/DevolucaoVeiculoReference</source.uri>
-    <target.uri>DevolucaoVeiculoReference</target.uri>
   </wire>
 </composite>

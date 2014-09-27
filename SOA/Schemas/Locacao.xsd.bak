@@ -44,14 +44,13 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-  
-  <xsd:element name="RegistraRetirada">
+
+<xsd:element name="RegistraRetirada">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="codReserva" type="xsd:int"/>
         <xsd:element name="datRetiradaEfetiva" type="xsd:date"/>
         <xsd:element name="numCNHCliente" type="xsd:string"/>
-        <xsd:element name="kmAtual" type="xsd:int"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -59,28 +58,9 @@
   <xsd:element name="RegistraRetiradaResponse">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="descStatusReserva" type="xsd:string"/>
+        <xsd:element name="reserva" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-  
-  
-  <xsd:element name="RegistraDevolucao">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="codReserva" type="xsd:int"/>
-        <xsd:element name="datDevolucaoEfetiva" type="xsd:date"/>
-        <xsd:element name="kmAtual" type="xsd:int"/>
-        <xsd:element name="numParcelas" type="xsd:int"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  
-  <xsd:element name="RegistraDevolucaoResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="descStatusReserva" type="xsd:string"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
+
 </xsd:schema>

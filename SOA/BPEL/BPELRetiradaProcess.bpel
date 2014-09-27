@@ -1,0 +1,146 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Sep 17 00:31:36 BRT 2014
+  Author:  cicero
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="BPELRetiradaProcess"
+               targetNamespace="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://svc.rentacar.com.br"
+         xmlns:ns2="http://soa.rentacar.com.br"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:ns3="http://model.rentacar.com.br/xsd" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+  <import namespace="http://soa.rentacar.com.br" location="../Schemas/Locacao.xsd"
+          importType="http://www.w3.org/2001/XMLSchema"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/Application2/SOARentaCar/BPELRetiradaProcess" location="../WSDLs/BPELRetiradaProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="bpelretiradaprocess_client" partnerLinkType="client:BPELRetiradaProcess" myRole="BPELRetiradaProcessProvider"/>
+    <partnerLink name="LocacaoReference" partnerLinkType="ns1:SOAPReference" partnerRole="LocacaoSvcPortType"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:BPELRetiradaProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:BPELRetiradaProcessResponseMessage"/>
+    <variable name="GetReservaInput" messageType="ns1:GetReservaRequest"/>
+    <variable name="GetReservaOutput" messageType="ns1:GetReservaResponse"/>
+    <variable name="RecuperaReserva_GetReserva_InputVariable" messageType="ns1:GetReservaRequest"/>
+    <variable name="RecuperaReserva_GetReserva_OutputVariable" messageType="ns1:GetReservaResponse"/>
+    <variable name="GetReservaInputVariable" messageType="ns1:GetReservaRequest"/>
+    <variable name="GetReservaOutputVariable" messageType="ns1:GetReservaResponse"/>
+    <variable name="ReservaRecuperada" type="ns2:Reserva"/>
+    <variable name="SetRetiradaVeiculoInputVariable" messageType="ns1:SetRetiradaVeiculoRequest"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in BPELRetiradaProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="bpelretiradaprocess_client" portType="client:BPELRetiradaProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="IdReserva">
+      <copy>
+        <from>$inputVariable.payload/ns2:codReserva</from>
+        <to>$GetReservaInputVariable.parameters/ns1:codReserva</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeLocacao" partnerLink="LocacaoReference"
+            portType="ns1:LocacaoSvcPortType" operation="GetReserva" inputVariable="GetReservaInputVariable"
+            outputVariable="GetReservaOutputVariable" bpelx:invokeAsDetail="no"/>
+    <!--   <invoke name="RecuperaReserva" partnerLink="PartnerLink1"
+            portType="ns1:LocacaoSvcPortType" inputVariable="RecuperaReserva_GetReserva_InputVariable"
+            outputVariable="RecuperaReserva_GetReserva_OutputVariable" operation="GetReserva"
+            bpelx:invokeAsDetail="no"/>-->
+    <if name="VerificaReservaRetirada">
+      <condition>$GetReservaOutputVariable.parameters/ns1:return/ns3:codReserva&gt;0</condition>
+      <sequence name="Sequence1">
+        <if name="VerificaDataReserva">
+          <condition>$inputVariable.payload/ns2:datRetiradaEfetiva=$GetReservaOutputVariable.parameters/ns1:return/ns3:datRetiradaPrevista</condition>
+          <if name="VerificaCNH">
+            <condition>$inputVariable.payload/ns2:numCNHCliente=$GetReservaOutputVariable.parameters/ns1:return/ns3:cliente/ns3:numCNHCliente</condition>
+            <sequence name="Sequence2">
+              <invoke name="RegistraRetirada" partnerLink="LocacaoReference"
+                      portType="ns1:LocacaoSvcPortType" operation="SetRetiradaVeiculo"
+                      inputVariable="SetRetiradaVeiculoInputVariable" bpelx:invokeAsDetail="no"/>
+              <assign name="RegistroRetiradaSucesso">
+                <copy>
+                  <from>concat("Retirada do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo, " registrada com sucesso. A devolução do veículo está programada para ", $GetReservaOutputVariable.parameters/ns1:return/ns3:datDevolucaoPrevista)</from>
+                  <to>$outputVariable.payload/ns2:descStatusReserva</to>
+                </copy>
+              </assign>
+            </sequence>
+            <else>
+              <assign name="CNHDiferente">
+                <copy>
+                  <from>"Número da CNH informado não confere."</from>
+                  <to>$outputVariable.payload/ns2:descStatusReserva</to>
+                </copy>
+              </assign>
+            </else>
+          </if>
+          <else>
+            <assign name="DataRetiradaDiferente">
+              <copy>
+                <from>"A data de retirada do veículo  não confere."</from>
+                <to>$outputVariable.payload/ns2:descStatusReserva</to>
+              </copy>
+            </assign>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <assign name="ReservaNaoEncontrada">
+          <copy>
+            <from>concat("Não foi possivel localizar a reserva de número ",$inputVariable.payload/ns2:codReserva)</from>
+            <to>$outputVariable.payload/ns2:descStatusReserva</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="bpelretiradaprocess_client" portType="client:BPELRetiradaProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

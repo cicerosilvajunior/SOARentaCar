@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://svc.rentacar.com.br"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns1="http://svc.rentacar.com.br"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="LocacaoSvcPortType_PLT">
+        <plnk:role name="LocacaoSvcPortType_Role" portType="ns1:LocacaoSvcPortType"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://svc.rentacar.com.br" location="http://localhost:8080/axis2/services/LocacaoSvc?wsdl"/>
+</wsdl:definitions>
