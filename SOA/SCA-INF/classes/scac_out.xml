@@ -1,2 +1,163 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Faults/>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='LocacaoDevolucaoReference']</loc>
+      <line>193</line>
+      <col>89</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "LocacaoDevolucaoReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='LocacaoDevolucaoReference']</loc>
+      <line>193</line>
+      <col>89</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "LocacaoDevolucaoReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='ExtServicesReference']</loc>
+      <line>138</line>
+      <col>80</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "ExtServicesReference":"{http://svc.rentacar.com.br}ProxySvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='ExtServicesReference']</loc>
+      <line>138</line>
+      <col>80</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "ExtServicesReference":"{http://svc.rentacar.com.br}ProxySvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='CartaoReference']</loc>
+      <line>204</line>
+      <col>77</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "CartaoReference":"{http://svc.rentacar.com.br}ProxySvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='CartaoReference']</loc>
+      <line>204</line>
+      <col>77</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "CartaoReference":"{http://svc.rentacar.com.br}ProxySvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='DevolucaoVeiculoReference']</loc>
+      <line>215</line>
+      <col>89</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "DevolucaoVeiculoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='DevolucaoVeiculoReference']</loc>
+      <line>215</line>
+      <col>89</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "DevolucaoVeiculoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='VeiculoLocacaoReference']</loc>
+      <line>171</line>
+      <col>87</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "VeiculoLocacaoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='VeiculoLocacaoReference']</loc>
+      <line>171</line>
+      <col>87</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "VeiculoLocacaoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='LocacaoReference']</loc>
+      <line>149</line>
+      <col>78</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "LocacaoReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='LocacaoReference']</loc>
+      <line>149</line>
+      <col>78</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "LocacaoReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='SOAPReference']</loc>
+      <line>182</line>
+      <col>77</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "SOAPReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='SOAPReference']</loc>
+      <line>182</line>
+      <col>77</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "SOAPReference":"{http://svc.rentacar.com.br}LocacaoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='VeiculoReference']</loc>
+      <line>127</line>
+      <col>78</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "VeiculoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap11Endpoint" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='VeiculoReference']</loc>
+      <line>127</line>
+      <col>78</col>
+      <file>/Users/cicero/Development/SOA/composite.xml</file>
+      <name>/Users/cicero/Development/SOA/composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "VeiculoReference":"{http://svc.rentacar.com.br}VeiculoSvcHttpSoap12Endpoint" in WSDL Manager</msg>
+   </Fault>
+</Faults>

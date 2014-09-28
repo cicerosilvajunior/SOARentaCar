@@ -209,7 +209,7 @@
                         inputVariable="DesbloquearVeiculoInput" bpelx:invokeAsDetail="no"/>
                 <assign name="MsgCobrancaRealizada">
                   <copy>
-                    <from>concat("Devolução do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo, " realizada com sucesso.")</from>
+                    <from>concat("Devolução do veículo ", $GetReservaOutputVariable.parameters/ns1:return/ns3:veiculo/ns3:dscPlacaVeiculo, " finalizada e cobrança de quilometragem adicional realizada com sucesso.")</from>
                     <to>$outputVariable.payload/ns2:descStatusReserva</to>
                   </copy>
                 </assign>

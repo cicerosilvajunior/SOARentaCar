@@ -4,13 +4,13 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="locacaoprocess_client" x="0" y="1419" side="left"/>
+      <partnerlink name="locacaoprocess_client" x="0" y="1515" side="left"/>
       <partnerlink name="LocacaoReference" x="0" y="1953" side="left"/>
       <partnerlink name="ClienteReference" x="0" y="572" side="left"/>
       <partnerlink name="ExtServicesReference" x="1119" y="1198" side="right"/>
-      <partnerlink name="VeiculoLocacaoReference" x="1119" y="284" side="right"/>
+      <partnerlink name="VeiculoLocacaoReference" x="1119" y="1416" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,51,817,379" show_swimlanes="true">
+   <graph_layout viewport="92,650,1200,554" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/if/sequence" type="sequence"/>

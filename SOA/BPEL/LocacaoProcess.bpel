@@ -82,6 +82,7 @@
     <variable name="GetVeiculoOutput" messageType="ns1:GetVeiculoResponse"/>
     <variable name="GetClienteInput" messageType="ns1:GetClienteRequest"/>
     <variable name="GetClienteOutput" messageType="ns1:GetClienteResponse"/>
+    <variable name="BloquearVeiculoInput" messageType="ns1:BloquearVeiculoRequest"/>
   </variables>
 
   <!-- 
@@ -342,6 +343,15 @@
                         <to>$outputVariable.payload/ns2:dadosReserva/ns2:veiculo/ns2:valKMAdicionalVeiculo</to>
                       </copy>
                     </assign>
+                    <assign name="IdVeiculo">
+                      <copy>
+                        <from>$GetVeiculoOutput.parameters/ns1:return/ns3:codVeiculo</from>
+                        <to>$BloquearVeiculoInput.parameters/ns1:codVeiculo</to>
+                      </copy>
+                    </assign>
+                    <invoke name="BloquearVeiculo" partnerLink="VeiculoLocacaoReference"
+                            portType="ns1:VeiculoSvcPortType" operation="BloquearVeiculo"
+                            inputVariable="BloquearVeiculoInput" bpelx:invokeAsDetail="no"/>
                   </sequence>
                   <else>
                     <sequence name="Sequence5">

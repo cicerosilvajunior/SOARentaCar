@@ -102,6 +102,20 @@
           <if name="VerificaCNH">
             <condition>$inputVariable.payload/ns2:numCNHCliente=$GetReservaOutputVariable.parameters/ns1:return/ns3:cliente/ns3:numCNHCliente</condition>
             <sequence name="Sequence2">
+              <assign name="DadosRetirada">
+                <copy>
+                  <from>$inputVariable.payload/ns2:codReserva</from>
+                  <to>$SetRetiradaVeiculoInputVariable.parameters/ns1:codReserva</to>
+                </copy>
+                <copy>
+                  <from>$inputVariable.payload/ns2:datRetiradaEfetiva</from>
+                  <to>$SetRetiradaVeiculoInputVariable.parameters/ns1:datRetirada</to>
+                </copy>
+                <copy>
+                  <from>$inputVariable.payload/ns2:kmAtual</from>
+                  <to>$SetRetiradaVeiculoInputVariable.parameters/ns1:kmAtual</to>
+                </copy>
+              </assign>
               <invoke name="RegistraRetirada" partnerLink="LocacaoReference"
                       portType="ns1:LocacaoSvcPortType" operation="SetRetiradaVeiculo"
                       inputVariable="SetRetiradaVeiculoInputVariable" bpelx:invokeAsDetail="no"/>

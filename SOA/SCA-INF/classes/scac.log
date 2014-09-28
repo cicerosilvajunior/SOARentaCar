@@ -1,18 +1,31 @@
-Set 27, 2014 3:26:10 PM oracle.dms.instrument.Noun findOrCreateByPath
-WARNING: Tentativa de criar um nome /DMS-Internal preexistente, do tipo n/a, com um tipo de conflito n/d.
-2014-09-27 15:26:12.101/3.142 Oracle Coherence 12.1.3.0.0 <Info> (thread=main, member=n/a): Loaded operational configuration from "jar:file:/D:/Software/Oracle/Middleware/Oracle_Home/coherence/lib/coherence.jar!/tangosol-coherence.xml"
-2014-09-27 15:26:12.212/3.253 Oracle Coherence 12.1.3.0.0 <Info> (thread=main, member=n/a): Loaded operational overrides from "jar:file:/D:/Software/Oracle/Middleware/Oracle_Home/coherence/lib/coherence.jar!/tangosol-coherence-override-dev.xml"
-2014-09-27 15:26:12.214/3.255 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "/tangosol-coherence-override.xml" is not specified
-2014-09-27 15:26:12.220/3.261 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-config.xml" is not specified
-2014-09-27 15:26:12.222/3.263 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-builder-config.xml" is not specified
-2014-09-27 15:26:12.225/3.266 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "/custom-mbeans.xml" is not specified
+2014-09-28 13:37:48.394/4.811 Oracle Coherence 12.1.3.0.0 <Info> (thread=main, member=n/a): Loaded operational configuration from "jar:file:/Users/cicero/Oracle/Middleware/Oracle_Home/coherence/lib/coherence.jar!/tangosol-coherence.xml"
+2014-09-28 13:37:48.513/4.930 Oracle Coherence 12.1.3.0.0 <Info> (thread=main, member=n/a): Loaded operational overrides from "jar:file:/Users/cicero/Oracle/Middleware/Oracle_Home/coherence/lib/coherence.jar!/tangosol-coherence-override-dev.xml"
+2014-09-28 13:37:48.516/4.933 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "/tangosol-coherence-override.xml" is not specified
+2014-09-28 13:37:48.521/4.938 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-config.xml" is not specified
+2014-09-28 13:37:48.523/4.940 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-builder-config.xml" is not specified
+2014-09-28 13:37:48.525/4.942 Oracle Coherence 12.1.3.0.0 <D5> (thread=main, member=n/a): Optional configuration override "/custom-mbeans.xml" is not specified
 
 Oracle Coherence Version 12.1.3.0.0 Build 52031
  Grid Edition: Development mode
 Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
 
-2014-09-27 15:26:12.361/3.402 Oracle Coherence GE 12.1.3.0.0 <Info> (thread=main, member=n/a): Created cache factory com.tangosol.net.DefaultConfigurableCacheFactory
-Set 27, 2014 3:26:13 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+2014-09-28 13:37:48.712/5.129 Oracle Coherence GE 12.1.3.0.0 <Info> (thread=main, member=n/a): Created cache factory com.tangosol.net.DefaultConfigurableCacheFactory
+Sep 28, 2014 1:37:50 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Set 27, 2014 3:26:15 PM oracle.integration.platform.blocks.PlatformConfigurationProvider getPlatformConfigurationProvider
-WARNING: O JRF não pode determinar a plataforma do servidor de aplicações atual.
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/ProxySvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/ProxySvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/ProxySvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/ProxySvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/ProxySvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/ProxySvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/ProxySvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/ProxySvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/LocacaoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/LocacaoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: Failed to load WSDL from http://localhost:8080/axis2/services/VeiculoSvc?wsdl due to: Error in getting XML input stream: http://localhost:8080/axis2/services/VeiculoSvc?wsdl: Connection refused
+WARNING: JRF is unable to determine the current application server platform.
